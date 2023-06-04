@@ -101,6 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2924, 0.389421, 5.20909)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.0420209, 0.966573, 0.252924, -0.158416, -0.256391, 0.953503, 0.986478, 0, 0.163894, 0, 6.38012, 0)
+shadow_enabled = true
 
 [connection signal="timeout" from="Enemy/PatrolTimer" to="Enemy" method="_on_patrol_timer_timeout"]
 [connection signal="body_entered" from="Enemy/HearingFar" to="Enemy" method="_on_hearing_far_body_entered"]

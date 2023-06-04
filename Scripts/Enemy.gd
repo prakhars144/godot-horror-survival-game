@@ -7,29 +7,24 @@ enum States{
 	waiting
 }
 
-var currentState : States
-var navigationAgent : NavigationAgent3D
-@export var waypoints : Array
-var waypointIndex : int
+@onready var navigationAgent := $NavigationAgent3D
+@onready var player := get_tree().get_nodes_in_group("Player")[0]
+@onready var patrolTimer := $PatrolTimer
+@onready var currentState := States.patrol
+@onready var waypoints := get_tree().get_nodes_in_group("EnemyWaypoint")
+
 @export var chaseSpeed = 300
 @export var patrolSpeed = 200
 
+var waypointIndex : int
 var playerInEarshotFar : bool
 var playerInEarshotClose : bool
 var playerInSightFar : bool
 var playerInSightClose : bool
-var player
-
-var patrolTimer : Timer
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	currentState = States.patrol
-	navigationAgent = $NavigationAgent3D
-	player = get_tree().get_nodes_in_group("Player")[0]
-	waypoints = get_tree().get_nodes_in_group("EnemyWaypoint")
+func _ready():  
 	navigationAgent.set_target_position(waypoints[0].global_position)
-	patrolTimer = $PatrolTimer
 	pass # Replace with function body.
 
 
@@ -75,10 +70,8 @@ func MoveTowardsPoint(delta, speed):
 func checkForPlayer():
 	var space_state = get_world_3d().direct_space_state
 	var result = space_state.intersect_ray(PhysicsRayQueryParameters3D.create($Head.global_position, player.get_node("Camera3D").global_position, 1, [self]))
-	print(result.size())
 	if result.size() > 0:
 		if(result["collider"].is_in_group("Player")):
-			print(is_in_group)
 			if(playerInEarshotClose):
 				print("playerInEarshotClose")
 				if(result["collider"].crouched == false):
@@ -90,10 +83,14 @@ func checkForPlayer():
 					navigationAgent.set_target_position(player.global_position)
 			if(playerInSightClose):
 				print("playerInSightClose")
-				currentState = States.chasing
+				if result["collider"].LightLevel > 0.5:
+					currentState = States.chasing
 			if(playerInSightFar):
 				print("playerInSightFar")
-				if(result["collider"].crouched == false):
+				if(result["collider"].crouched == false && result["collider"].LightLevel > 0.6):
+					currentState = States.hunting
+					navigationAgent.set_target_position(player.global_position)
+				if(result["collider"].crouched == true && result["collider"].LightLevel > 0.7):
 					currentState = States.hunting
 					navigationAgent.set_target_position(player.global_position)
 	pass

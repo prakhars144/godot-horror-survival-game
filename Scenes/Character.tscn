@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://qkjdxasnc722"]
+[gd_scene load_steps=12 format=3 uid="uid://qkjdxasnc722"]
 
 [ext_resource type="Script" path="res://Scripts/Character.gd" id="1_olt0j"]
+[ext_resource type="PackedScene" uid="uid://bue6iv1nq2il0" path="res://Scenes/light_detect.tscn" id="2_nma7r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x4nbg"]
 
@@ -309,6 +310,7 @@ script = ExtResource("1_olt0j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02023, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_x4nbg")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -330,3 +332,6 @@ shape = SubResource("CapsuleShape3D_wn62s")
 [node name="CrouchedCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.999998, 0, 3.72529e-09, 0, 1, 0, -3.72529e-09, 0, 0.999998, -0.0100955, 0.52321, 0.000240736)
 shape = SubResource("CapsuleShape3D_v1abv")
+
+[node name="Light Detect" parent="." instance=ExtResource("2_nma7r")]
+transform = Transform3D(1, 0, 1.86265e-09, 0, 1, 0, -1.86265e-09, 0, 1, 0, 0.770814, 0)

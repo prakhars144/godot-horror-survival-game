@@ -7,6 +7,7 @@ const JUMP_VELOCITY = 4.5
 @export var sensitivity = 3
 var crouched : bool
 var flashLightIsOut : bool
+var LightLevel : float
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -19,6 +20,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	LightLevel = get_node("Light Detect").LightLevel
+	print(LightLevel)
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -29,7 +32,6 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var speed = SPEED
 	if Input.is_action_pressed("Crouch"):
-		speed = CROUCH_SPEED
 		if !crouched:
 			$AnimationPlayer.play("Crouch")
 			crouched = true
@@ -40,7 +42,9 @@ func _physics_process(delta):
 			if result.size() == 0:
 				$AnimationPlayer.play_backwards("Crouch")
 				crouched = false
-				
+	if crouched:
+		speed = CROUCH_SPEED
+		
 	if Input.is_action_just_pressed("Flashlight"):
 		if flashLightIsOut:
 			$AnimationPlayer.play("flashlightHide")
