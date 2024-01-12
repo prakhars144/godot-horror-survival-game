@@ -35,6 +35,7 @@ func _process(delta):
 			if (navigationAgent.is_navigation_finished()):
 				currentState = States.waiting
 				patrolTimer.start()
+				print("start patrol")
 				return
 			MoveTowardsPoint(delta, patrolSpeed)
 			pass
@@ -73,20 +74,16 @@ func checkForPlayer():
 	if result.size() > 0:
 		if(result["collider"].is_in_group("Player")):
 			if(playerInEarshotClose):
-				print("playerInEarshotClose")
 				if(result["collider"].crouched == false):
 					currentState = States.chasing
 			if(playerInEarshotFar):
-				print("playerInEarshotFar")
 				if(result["collider"].crouched == false):
 					currentState = States.hunting
 					navigationAgent.set_target_position(player.global_position)
 			if(playerInSightClose):
-				print("playerInSightClose")
 				if result["collider"].LightLevel > 0.5:
 					currentState = States.chasing
 			if(playerInSightFar):
-				print("playerInSightFar")
 				if(result["collider"].crouched == false && result["collider"].LightLevel > 0.6):
 					currentState = States.hunting
 					navigationAgent.set_target_position(player.global_position)
@@ -111,54 +108,46 @@ func _on_patrol_timer_timeout():
 func _on_hearing_far_body_entered(body):
 	if body.is_in_group("Player"):
 		playerInEarshotFar = true
-		print("Player entered far")
 	pass # Replace with function body.
 
 
 func _on_hearing_far_body_exited(body):
 	if body.is_in_group("Player"):
 		playerInEarshotFar = false
-		print("Player exited far")
 	pass # Replace with function body.
 
 
 func _on_hearing_close_body_entered(body):
 	if body.is_in_group("Player"):
 		playerInEarshotClose = true
-		print("Player entered close")
 	pass # Replace with function body.
 
 
 func _on_hearing_close_body_exited(body):
 	if body.is_in_group("Player"):
 		playerInEarshotClose = false
-		print("Player exited close")
 	pass # Replace with function body.
 
 
 func _on_sight_close_body_entered(body):
 	if body.is_in_group("Player"):
 		playerInSightClose = true
-		print("Player seen close")
 	pass # Replace with function body.
 
 
 func _on_sight_close_body_exited(body):
 	if body.is_in_group("Player"):
 		playerInSightClose = false
-		print("Player not seen close")
 	pass # Replace with function body.
 
 
 func _on_sight_far_body_entered(body):
 	if body.is_in_group("Player"):
 		playerInSightFar = true
-		print("Player seen far")
 	pass # Replace with function body.
 
 
 func _on_sight_far_body_exited(body):
 	if body.is_in_group("Player"):
 		playerInSightFar = false
-		print("Player not seen far")
 	pass # Replace with function body.

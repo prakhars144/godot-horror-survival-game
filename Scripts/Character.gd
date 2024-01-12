@@ -21,7 +21,6 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	LightLevel = get_node("Light Detect").LightLevel
-	print(LightLevel)
 	# Handle Jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
