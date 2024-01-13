@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://qkjdxasnc722" path="res://Scenes/Character.tscn" id="1_3xban"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="2_l14dv"]
-[ext_resource type="Script" path="res://Scenes/RichTextLabel.gd" id="3_wspsj"]
+[ext_resource type="Script" path="res://Scripts/RichTextLabel.gd" id="3_wspsj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ocdqk"]
 height = 1.99826

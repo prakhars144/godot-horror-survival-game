@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://qkjdxasnc722"]
 
 [ext_resource type="Script" path="res://Scripts/Character.gd" id="1_olt0j"]
-[ext_resource type="PackedScene" uid="uid://bue6iv1nq2il0" path="res://Scenes/light_detect.tscn" id="2_nma7r"]
+[ext_resource type="PackedScene" uid="uid://bue6iv1nq2il0" path="res://Scenes/lightDetect.tscn" id="2_nma7r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x4nbg"]
 
